@@ -1,0 +1,7 @@
+{
+  "name": "DTPen-info",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

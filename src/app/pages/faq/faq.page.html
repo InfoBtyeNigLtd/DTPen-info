@@ -1,0 +1,42 @@
+<ion-content>
+  <div class="main_content_div">
+
+      <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner3.jpg)'">
+          <div class="upper_div">
+              <div class="round_box" style="background: white;" (click)="goBack()">
+                  <ion-icon name="arrow-back" color="dark"></ion-icon>
+              </div>
+              <div style="display: flex;">
+                  <div class="round_box">
+                      <ion-icon name="share-social-outline"></ion-icon>
+                  </div>
+                  <div class="round_box" style="margin-left: 16px;">
+                      <ion-icon name="heart-outline"></ion-icon>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="light_container features_container">
+          <ion-label class="title_lbl" style="display:flex; justify-content: center; padding-bottom: 10px;">Frequently Asked Questions</ion-label>
+
+          <div style="margin-bottom: 16px;" *ngFor="let item of features; let i = index;">
+            <div class="acc_title">
+                <div class="title_flex" (click)="toggleSection(i)">
+                    <ion-label>{{item.name}}</ion-label>
+                    <ion-icon name="add" *ngIf="!item.open"></ion-icon>
+                    <ion-icon name="remove" *ngIf="item.open"></ion-icon>
+                </div>
+
+                <div *ngIf="item.open" style="margin-bottom: 16px;">
+                    <app-accordion1></app-accordion1>
+                </div>
+            </div>
+        </div>
+
+
+      </div>
+
+  </div>
+</ion-content>
+

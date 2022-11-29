@@ -1,0 +1,48 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="goBack()">
+              <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title>Maruti Baleno</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="goBack()">
+              <ion-icon slot="icon-only" ></ion-icon>
+          </ion-button>
+          <ion-button (click)="goBack()">
+              <ion-icon slot="icon-only"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+
+      <div class="content_div">
+
+          <div class="grey_line_div"></div>
+
+          <div class="news_div">
+              <ion-label class="title_lbl">Maruti Baleno News</ion-label>
+
+              <div class="news_flex" *ngFor="let item of annoucements">
+                  <div class="news_detail">
+                      <ion-label class="bold_lbl">Here are the differences between the old and new...</ion-label>
+                      <ion-label class="date_lbl">
+                          <span>By Mausam</span> &nbsp;•&nbsp; <span>Feb 25,2022</span>
+                      </ion-label>
+                  </div>
+                  <div class="bg_image back_image" [style.backgroundImage]="'url('+ item +')'"></div>
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Support Response</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <mat-card *ngFor="let item of responseData">
+    <ion-button color="success" fill="outline">{{item?.subject}}</ion-button>
+    <mat-card-content class="content-div">
+      <div class="content-div1">
+        <div class="name">{{item?.description}}</div>
+        <div class="name"><i>Category: {{item?.ticketCategoryName}}</i></div>
+      </div>
+      <div class="content-div2">
+        <i>{{item?.entryDate | date: 'dd/MM/yyyy'}}</i>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <div class="outgoing" *ngFor="let comment of commentData">
+    <div class="res">{{comment?.response}}</div>
+    <div class="date"><i>{{comment?.entryDate| date: 'dd/MM/yyyy'}}</i></div>
+  </div>
+
+
+  <!-- <ion-card color="light">
+  <ion-card-header>
+    <ion-card-title>Card Title</ion-card-title>
+    <ion-card-subtitle>{{item?.description}}</ion-card-subtitle>
+    <ion-card-subtitle>{{item?.ticketCategoryName}}</ion-card-subtitle>
+
+  </ion-card-header>
+
+  <ion-card-content>
+    Card Content
+  </ion-card-content>
+  </ion-card> -->
+
+
+  <div class="box-footer">
+    <div class="input-group">
+      <ion-textarea placeholder="Type something here" (ionBlur)="updateResponseToQuestionsAsked($event)"
+        [autoGrow]="true" [value]=responseToQuestionsAsked>
+      </ion-textarea>
+      <ion-button color="success" fill="outline" (click)="submit()">Send</ion-button>
+    </div>
+  </div>
+
+</ion-content>

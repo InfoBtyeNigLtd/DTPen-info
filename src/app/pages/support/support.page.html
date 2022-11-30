@@ -1,14 +1,13 @@
-<ion-header mode="md" class="ion-no-border">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Annoucements </ion-title>
+    <ion-title>Support</ion-title>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
 
@@ -16,13 +15,11 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-button color="success" fill="outline">Delta State Pension Board news</ion-button>
-
-  <mat-card *ngFor="let item of annoucements" (click)="swtichActivePage('annoucements-details', item?.postId)">
+  <mat-card *ngFor="let item of responseData"
+    (click)="routeToDetails(item.computerNo, item.ticketCategoryId,  item.ticketId)">
 
     <mat-card-header>
-      <mat-card-title> {{item?.title}}</mat-card-title>
-      <mat-card-subtitle>{{item?.memberName}}</mat-card-subtitle>
+      <mat-card-title> {{item?.subject}}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="content-div">
@@ -35,11 +32,22 @@
       </div>
 
       <div class="content-div2">
-        <span>By Admin</span> &nbsp;•&nbsp; <span>{{item?.entryDate | date:'d-MMM-YYYY'}}</span>
-        <!-- <i>{{item?.entryDate | date:'d-MMM-YYYY'}}</i> -->
+        <i>{{item?.entryDate | date:'d-MMM-YYYY'}}</i>
       </div>
     </mat-card-content>
 
   </mat-card>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="swtichActivePage('new-message')">
+    <ion-fab-button>
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+  <!-- for infinit loading -->
+  <!-- <ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
 
 </ion-content>

@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AnnouncementPageRoutingModule } from './announcement-routing.module';
+import { AnnouncementDetailsPageRoutingModule } from './announcement-details-routing.module';
 
-import { AnnouncementPage } from './announcement.page';
-import { HttpClientModule } from '@angular/common/http';
+import { AnnouncementDetailsPage } from './announcement-details.page';
 import { MatCardModule } from '@angular/material/card';
 
 
@@ -17,9 +16,8 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule,
     IonicModule,
     MatCardModule,
-    HttpClientModule,
-    AnnouncementPageRoutingModule
+    AnnouncementDetailsPageRoutingModule
   ],
-  declarations: [AnnouncementPage]
+  declarations: [AnnouncementDetailsPage]
 })
-export class AnnouncementPageModule {}
+export class AnnouncementDetailsPageModule {}

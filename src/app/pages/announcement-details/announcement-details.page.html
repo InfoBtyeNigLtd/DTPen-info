@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Announcement Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-card style="background-color: #f7dcaf;"  *ngFor="let item of announcementData">
+    <ion-card-header>
+      <ion-card-title>{{item?.title}}</ion-card-title>
+      <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{item?.message}}    
+    </ion-card-content>
+    <i class="post-date">{{item.entryDate | date: 'd-MMM-YYYY'}}</i>
+
+  </ion-card>
+
+  <!-- <div class="main-post" *ngFor="let item of announcementData" >
+    <div class="post-topic">{{item?.title}}</div>
+    <div class="post-desc">{{item?.message}}</div>
+    <i class="post-date">{{item.entryDate | date: 'd-MMM-YYYY'}}</i>
+  </div> -->
+</ion-content>
+

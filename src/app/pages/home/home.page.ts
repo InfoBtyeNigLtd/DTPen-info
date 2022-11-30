@@ -31,16 +31,16 @@ export class HomePage implements OnInit {
       url: 'profile'
     },
     {
+      title: 'Support',
+      subTitle: 'upadted news portal',
+      color: '#f85c33',
+      url: 'support'
+    },
+    {
       title: 'Status',
       subTitle: 'know your status',
       color: '#5ba8f8',
       url: 'status'
-    },
-    {
-      title: 'Announcement',
-      subTitle: 'upadted news portal',
-      color: '#f85c33',
-      url: 'announcement'
     },
     {
       title: 'FAQ',

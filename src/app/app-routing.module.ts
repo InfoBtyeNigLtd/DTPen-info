@@ -28,6 +28,22 @@ const routes: Routes = [
   {
     path: 'announcement',
     loadChildren: () => import('./pages/announcement/announcement.module').then( m => m.AnnouncementPageModule)
+  },
+  {
+    path: 'announcement-details',
+    loadChildren: () => import('./pages/announcement-details/announcement-details.module').then( m => m.AnnouncementDetailsPageModule)
+  },
+  {
+    path: 'support',
+    loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule)
+  },
+  {
+    path: 'support-details',
+    loadChildren: () => import('./pages/support-details/support-details.module').then( m => m.SupportDetailsPageModule)
+  },
+  {
+    path: 'write-support',
+    loadChildren: () => import('./pages/write-support/write-support.module').then( m => m.WriteSupportPageModule)
   }
 
 

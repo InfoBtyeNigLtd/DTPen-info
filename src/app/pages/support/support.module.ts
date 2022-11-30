@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AnnouncementPageRoutingModule } from './announcement-routing.module';
+import { SupportPageRoutingModule } from './support-routing.module';
 
-import { AnnouncementPage } from './announcement.page';
-import { HttpClientModule } from '@angular/common/http';
+import { SupportPage } from './support.page';
 import { MatCardModule } from '@angular/material/card';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -18,8 +17,8 @@ import { MatCardModule } from '@angular/material/card';
     IonicModule,
     MatCardModule,
     HttpClientModule,
-    AnnouncementPageRoutingModule
+    SupportPageRoutingModule
   ],
-  declarations: [AnnouncementPage]
+  declarations: [SupportPage]
 })
-export class AnnouncementPageModule {}
+export class SupportPageModule {}

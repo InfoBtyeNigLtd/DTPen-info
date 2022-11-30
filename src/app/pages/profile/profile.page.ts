@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertServiceService } from 'src/app/service/alert-service.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,7 +28,6 @@ export class ProfilePage implements OnInit {
   gender: string = "";
   result: any;
 
-  loadingScreen!: HTMLIonLoadingElement;
   isDelete: boolean = false;
 
   APIEndPoint1 = environment.memberAPI;
@@ -41,6 +41,10 @@ export class ProfilePage implements OnInit {
     private alertController: AlertController,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
+    private alertService: AlertServiceService,
+    private navCtrl: NavController,
+
+
   ) { }
 
   ngOnInit() {
@@ -67,7 +71,7 @@ export class ProfilePage implements OnInit {
    }
 
    getUserData() {
-    this.showLoading();
+    this.alertService.showLoading();
     this.memoryData = JSON.parse(this.memoryData);
     this.memoryData?.fullname;
     this.computerNo = this.memoryData?.computerNo;
@@ -78,7 +82,7 @@ export class ProfilePage implements OnInit {
         // console.log('success data', data);
         
         this.result = data;
-        this.loadingScreen?.dismiss();
+        this.alertService.loadingScreen?.dismiss();
         const result: any = data;
         this.surname = result.surname;
         this.otherNames = result.firstName + " " + result.middleName
@@ -90,37 +94,13 @@ export class ProfilePage implements OnInit {
         setTimeout(() => {
           // console.log('error data', data);
           
-          this.loadingScreen?.dismiss().then(() => { this.presentAlert('OOPS!!!', 'Poor Network Detected'); });
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('OOPS!!!', 'Poor Network Detected'); });
         }, 1000);
 
       }
 
     });
 
-  }
-
-  async presentAlert(header: any, message: any) {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: header,
-      message: message,
-      // buttons: ['OK'],
-    });
-  
-    return await alert.present();
-  
-    const { role } = await alert.onDidDismiss();
-  }
-
-  async showLoading() {
-    this.loadingScreen = await this.loadingCtrl.create({
-      message: 'Loading...',
-      // duration: 3000,
-      spinner: 'circles',
-    });
-  
-    return await this.loadingScreen.present();
-    
   }
 
 
@@ -159,9 +139,9 @@ export class ProfilePage implements OnInit {
       next: data => {
         // console.log('sent successfully', data);
          // show success Message
-         this.showLoading();
+         this.alertService.showLoading();
          setTimeout(() => {
-           this.loadingScreen?.dismiss().then(() => {
+           this.alertService.loadingScreen?.dismiss().then(() => {
            });
            this.logout();
           //  this.router.navigate(['/login']);
@@ -170,11 +150,11 @@ export class ProfilePage implements OnInit {
       },
       error: data => {
         console.log('something went wrong', data);
-        this.loadingScreen?.dismiss();
+        this.alertService.loadingScreen?.dismiss();
         // show error Message
-        this.presentAlert('Oops!', data.error);
+        this.alertService.presentAlert('Oops!', data.error);
         setTimeout(() => {
-          this.loadingScreen?.dismiss().then(() => {
+          this.alertService.loadingScreen?.dismiss().then(() => {
           });
         }, 5000);
       }
@@ -191,6 +171,10 @@ logout() {
   this.setStatus('inactive');
   this.router.navigate(['/login']);
   window.location.reload();
+}
+
+goBack() {
+  this.navCtrl.back();
 }
 
 }

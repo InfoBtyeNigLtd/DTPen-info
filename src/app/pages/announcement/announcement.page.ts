@@ -85,7 +85,7 @@ export class AnnouncementPage implements OnInit {
       this.announcementDetails = clickedData;
       console.log(this.announcementDetails);
       
-      this.router.navigate(['/announcement-details',{annoucementPostId: this.annoucementPostId, announcementDetails:this.announcementDetails}])
+      this.router.navigate(['/announcement-details',{annoucementPostId: this.annoucementPostId, announcementDetails:JSON.stringify(this.announcementDetails)}])
 
     }
     else {

@@ -25,7 +25,7 @@ export class AnnouncementDetailsPage implements OnInit {
 
     ) { 
       this.activatedRoute.params.subscribe(param => {
-        this.announcementData = param['announcementDetails'];
+        this.announcementData = JSON.parse(param['announcementDetails']);
         this.annoucementPostId = param['annoucementPostId'];
         console.log('incoming data',param);
   

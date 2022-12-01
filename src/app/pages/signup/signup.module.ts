@@ -8,11 +8,17 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MatCardModule,
+    HttpClientModule,
     SignupPageRoutingModule
   ],
   declarations: [SignupPage]

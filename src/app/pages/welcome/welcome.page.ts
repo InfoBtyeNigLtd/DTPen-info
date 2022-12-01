@@ -41,8 +41,8 @@ export class WelcomePage implements OnInit {
 
   }
 
-  goToHome() {
-    this.router.navigate(['/home']);
+  goToSignup() {
+    this.router.navigate(['/signup']);
 }
 
 public password :any;
@@ -115,9 +115,8 @@ validateInput(){
           // console.log('Wrong details');
         }
         setTimeout(() => {
-        this.alertService.presentAlert('OOPS!!!', `${data.error}`);
-
-          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('OOPS!!!', `${data.error}`); });
+        this.alertService.presentAlert('Oops!', `${data.error}`);
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops!', `${data.error}`); });
         }, 1000);
         
       }

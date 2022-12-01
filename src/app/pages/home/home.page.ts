@@ -54,5 +54,10 @@ export class HomePage implements OnInit {
   goToPage(url:any) {
     this.router.navigate([url])
   }
+
+  gotoAnnoucement(){
+    console.log('clicked');
+    this.router.navigate(['/announcement'])
+  }
   
 }

@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'write-support',
     loadChildren: () => import('./pages/write-support/write-support.module').then( m => m.WriteSupportPageModule)
+  },
+  {
+    path: 'status',
+    loadChildren: () => import('./pages/status/status.module').then( m => m.StatusPageModule)
   }
 
 

@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+  
+    height: 300px;
+    width: 300px;
+  
+    margin: 0 auto;
+  }
+  
+  
+  .ripple-parent {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+  
+  
+  .rounded-rectangle {
+    width: 185px;
+    height: 65px;
+    border-radius: 8px;
+  }

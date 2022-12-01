@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { AlertServiceService } from 'src/app/service/alert-service.service';
+
 
 
 
@@ -19,6 +21,8 @@ export class WelcomePage implements OnInit {
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private http: HttpClient,
+    private alertService: AlertServiceService,
+
     ) { }
 
   ngOnInit() {
@@ -41,10 +45,8 @@ export class WelcomePage implements OnInit {
     this.router.navigate(['/home']);
 }
 
-
 public password :any;
 public computerNo: any;
-loadingScreen!: HTMLIonLoadingElement;
 
 APIEndPoint1 = environment.memberAPI;
 private reactivateAPI = environment.reactivateAPI;
@@ -68,33 +70,6 @@ hide = true;
 get emailInput() { return this.signin.get('email'); }
 get passwordInput() { return this.signin.get('password'); } 
 
-/** two must be supplied to show mwssage
- * @param header 
- * @param subHeader
- */
-async presentAlert(header: any, message: any) {
-  const alert = await this.alertController.create({
-    header: 'Alert',
-    subHeader: header,
-    message: message,
-    // buttons: ['OK'],
-  });
-
-  return await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-}
-
-async showLoading() {
-  this.loadingScreen = await this.loadingCtrl.create({
-    message: 'Loading...',
-    // duration: 3000,
-    spinner: 'circles',
-  });
-
-  return await this.loadingScreen.present();
-  
-}
 
 updatePassword(value: any) {
   this.password = value.target.value;
@@ -110,9 +85,9 @@ updateEmail(value: any) {
 
 validateInput(){
   if (this.computerNo === '' || this.computerNo === undefined || this.password === '' || this.password === undefined) {
-    this.presentAlert('Oops!', 'All fields are required');
+    this.alertService.presentAlert('Oops!', 'All fields are required');
   }else{
-    this.showLoading();
+    this.alertService.showLoading();
 
     this.http.post(`${this.APIEndPoint1}${this.computerNo}/${this.password}`, { }
     ).subscribe({
@@ -120,10 +95,10 @@ validateInput(){
         console.log('success', data);
         
         sessionStorage.setItem('userData', JSON.stringify(data));
-        this.loadingScreen?.dismiss();
-        this.presentAlert('User found', 'Login successfull');
+        this.alertService.loadingScreen?.dismiss();
+        this.alertService.presentAlert('User found', 'Login successfull');
         setTimeout(() => {
-          this.loadingScreen?.dismiss().then(() => {
+          this.alertService.loadingScreen?.dismiss().then(() => {
             this.setStatus('active');
             this.gotoDashboard();
           });
@@ -140,9 +115,9 @@ validateInput(){
           // console.log('Wrong details');
         }
         setTimeout(() => {
-        this.presentAlert('OOPS!!!', `${data.error}`);
+        this.alertService.presentAlert('OOPS!!!', `${data.error}`);
 
-          this.loadingScreen?.dismiss().then(() => { this.presentAlert('OOPS!!!', `${data.error}`); });
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('OOPS!!!', `${data.error}`); });
         }, 1000);
         
       }

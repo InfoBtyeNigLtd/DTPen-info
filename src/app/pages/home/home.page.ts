@@ -32,7 +32,7 @@ export class HomePage implements OnInit {
     },
     {
       title: 'Support',
-      subTitle: 'upadted news portal',
+      subTitle: 'Message helpdesk Center',
       color: '#f85c33',
       url: 'support'
     },

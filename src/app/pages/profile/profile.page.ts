@@ -93,8 +93,7 @@ export class ProfilePage implements OnInit {
       error: data => {
         setTimeout(() => {
           // console.log('error data', data);
-          
-          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('OOPS!!!', 'Poor Network Detected'); });
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops', 'Poor Network Detected'); });
         }, 1000);
 
       }
@@ -104,9 +103,11 @@ export class ProfilePage implements OnInit {
   }
 
 
-  async presentAlertDelete() {
+  async presentAlertDeactivate(event: any) {
+    // console.log(event);
+    
     const alert = await this.alertController.create({
-      header: 'Confirm Prompt!',
+      header: 'Confirm Deactivation',
       message: 'Are you sure',
       buttons: [
         {
@@ -121,6 +122,7 @@ export class ProfilePage implements OnInit {
           role: 'confirm',
           handler: () => {
             this.handlerMessage = 'Alert confirmed';
+            this.deactivation(event);
           },
         },
       ],
@@ -132,7 +134,7 @@ export class ProfilePage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  properDelete(event: any){
+  deactivation(event: any){
     // console.log('computer number: ',event);
 
     this.http.post(`${this.APIEndPoint1}${this.computerNo}`, {}).subscribe({
@@ -141,10 +143,9 @@ export class ProfilePage implements OnInit {
          // show success Message
          this.alertService.showLoading();
          setTimeout(() => {
-           this.alertService.loadingScreen?.dismiss().then(() => {
-           });
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success', 'Account Deactivated'); });
            this.logout();
-          //  this.router.navigate(['/login']);
+           this.router.navigate(['/']);
          }, 5000);
 
       },
@@ -152,7 +153,7 @@ export class ProfilePage implements OnInit {
         console.log('something went wrong', data);
         this.alertService.loadingScreen?.dismiss();
         // show error Message
-        this.alertService.presentAlert('Oops!', data.error);
+        this.alertService.presentAlert('Oops', data.error);
         setTimeout(() => {
           this.alertService.loadingScreen?.dismiss().then(() => {
           });
@@ -175,6 +176,35 @@ logout() {
 
 goBack() {
   this.navCtrl.back();
+}
+
+async presentAlertLogout() {
+  const alert = await this.alertController.create({
+    header: 'Confirm Logout',
+    message: 'Are you sure',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          this.handlerMessage = 'Alert canceled';
+        },
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          this.handlerMessage = 'Alert confirmed';
+          this.logout();
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  this.roleMessage = `Dismissed with role: ${role}`;
 }
 
 }

@@ -9,7 +9,7 @@
     <ion-label class="bold_lbl">DTPen-info</ion-label><br>
     <ion-label class="small_lbl">Know more about your Pension status</ion-label>
 
-    <mat-card>
+    <mat-card *ngIf="isLogin" style="background-color:transparent">
       <form [formGroup]="signin">
         <mat-form-field appearance="outline">
           <mat-label>email </mat-label>
@@ -23,16 +23,49 @@
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
 
-      <ion-button (click)="validateInput()" expand="block"> login</ion-button>
+      <ion-button (click)="validateInput()" expand="block" class="fb_btn"> login</ion-button>
       </form>
     </mat-card><br>
 
-    <ion-label>
-      Don't have an account?
-    </ion-label>
-    <ion-button (click)="goToSignup()" expand="block"  class="fb_btn" mode="ios">
-      Signup
-    </ion-button>
+    <mat-card *ngIf="reactivation" style="background-color:transparent">
+        <mat-form-field appearance="outline">
+          <mat-label>email </mat-label>
+          <input type="text" matInput placeholder="exapmle@gmail.com" (blur)="updateEmail($event)" required >
+          <mat-icon matSuffix >verified_user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Username </mat-label>
+          <input type="text" matInput placeholder="exapmle" (blur)="updateUserName($event)" required>
+          <mat-icon matSuffix >verified_user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password </mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" required placeholder="Password" (blur)="updatePassword($event)">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+
+      <ion-button (click)="reactivateUser()" expand="block" > Reactivate </ion-button>
+    </mat-card><br>
+
+    <ion-label (click)="goToSignup()"> Don't have an account? <span style="color:blue;">Signup</span></ion-label>
 
   </div>
 </ion-content>
+
+<div class="settings" style="display: flex; flex-direction:column;">
+  <!-- <app-input (value)="updateComputerNo($event)" type="number" id="3" inputType="default" legend="Computer Number"
+    placeholder="Computer Number" bgColor="#303245" color="#eee" icon="inbox-fill"></app-input> -->
+  <!-- <app-input (value)="updateEmail($event)" type="email" id="9" inputType="default" legend="Email"
+    placeholder="mail@gmail.com" bgColor="#303245" color="#eee" icon="inbox-fill"></app-input>
+    <app-input (value)="updateUsername($event)" type="text" id="8" inputType="default" legend="Username"
+    placeholder="username@gmail.com" bgColor="#303245" color="#eee" icon="inbox-fill"></app-input>
+  <app-input (value)="updatePassword($event)" type="password" id="7" inputType="default" legend="Password"
+    placeholder="password" label="lastname" sx="background-color: #303245; color: #eee" icon="lock-line">
+  </app-input> -->
+  <!-- <button type="text" class="submit"
+    (click)="reactivateUser('https://app.deltastatepensionsbureau.com/IBHelpDesk/Account/Reactivate/')">Reactivate</button> -->
+    <!-- <button type="text" class="submit"
+    (click)="reactivateUser()">Reactivate</button> -->
+</div>

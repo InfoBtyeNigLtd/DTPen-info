@@ -27,11 +27,11 @@
           <ion-input type="text" placeholder="PFA" value="PFA: {{pfaCode}}" readonly=""></ion-input>
           <ion-input type="text" placeholder="PIN" value="PIN: {{pinNo}}" readonly=""></ion-input>
 
-          <ion-button (click)="logout()" expand="block"  class="fb_btn" style="background-color: #2b7aef;" mode="ios">
+          <ion-button (click)="presentAlertLogout()" expand="block"  class="fb_btn" style="background-color: #2b7aef;" mode="ios">
              Logout
           </ion-button>
       
-          <ion-button expand="block" mode="ios" (click)="presentAlertDelete()">
+          <ion-button expand="block" mode="ios" (click)="presentAlertDeactivate(computerNo)">
               Deactivate Account
           </ion-button>
       </div>

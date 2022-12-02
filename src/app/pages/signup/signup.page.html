@@ -11,4 +11,63 @@
 
 <ion-content>
 
+  <div class="main_content_div">
+    <div class="logo_box">
+      <div class="inner_box">
+        <img src="assets/imgs/simple-logo.png" style="border-radius: 100%;">
+      </div>
+    </div>
+
+    <ion-label class="bold_lbl">DTPen-info</ion-label><br>
+    <ion-label class="small_lbl">Know more about your Pension status</ion-label>
+    <ion-card-subtitle color="danger">{{name}}</ion-card-subtitle>
+
+
+    <mat-card>
+      <form [formGroup]="signup">
+        <mat-form-field appearance="outline">
+          <mat-label>Computer Number</mat-label>
+          <input type="text" matInput placeholder="qwerty12345" (blur)="updateComputerNo($event)" required formControlName="computerNo">
+          <mat-icon matSuffix >verified_user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput placeholder="example@gmail.com" (blur)="updateUserName($event)" required formControlName="username">
+          <mat-icon matSuffix >verified_user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="example" (blur)="updateEmail($event)" required formControlName="email">
+          <mat-icon matSuffix >verified_user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password </mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required placeholder="Password" (blur)="updatePassword($event)">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Repeat Password </mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="rPassword" required placeholder="Repeat Password" (blur)="updateRepeatPassword($event)">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+
+        <ion-label color="danger">Note: Signup button will only show when the computer number is valid</ion-label>
+      <ion-button (click)="validatepassword()" expand="block" *ngIf="canRegister"> signup</ion-button>
+      </form>
+    </mat-card><br>
+
+    <ion-label> Already have an account? </ion-label>
+    <ion-button (click)="goToLogin()" expand="block"  class="fb_btn" mode="ios">
+      Login
+    </ion-button>
+
+  </div>
+
+
 </ion-content>
+
+<!-- <button type="text" class="submit" (click)="validatepassword()" *ngIf="canRegister">submit</button> -->

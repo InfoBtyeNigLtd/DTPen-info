@@ -1,13 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { AlertServiceService } from 'src/app/service/alert-service.service';
-
-
-
 
 @Component({
   selector: 'app-welcome',
@@ -15,126 +12,172 @@ import { AlertServiceService } from 'src/app/service/alert-service.service';
   styleUrls: ['./welcome.page.scss'],
 })
 
-export class WelcomePage implements OnInit {
+export class WelcomePage implements OnInit, AfterContentChecked {
+
+
+
 
   constructor(private router: Router,
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private http: HttpClient,
     private alertService: AlertServiceService,
+    private ref: ChangeDetectorRef,
 
-    ) { }
+
+  ) { }
+
+
 
   ngOnInit() {
 
-    let lStatus = this.getStatus();
+  }
 
-    if (lStatus === 'active') {
-
-      this.isLogin = false;
-      this.isLogout = true;
-    } else {
-
-      this.isLogin = true;
-      this.isLogout = false;
-    }
-
+  ngAfterContentChecked(): void {
+    this.ref.detectChanges();
   }
 
   goToSignup() {
     this.router.navigate(['/signup']);
-}
+  }
 
-public password :any;
-public computerNo: any;
-
-APIEndPoint1 = environment.memberAPI;
-private reactivateAPI = environment.reactivateAPI;
-
-isLogin: boolean = false;
-isLogout: boolean = true;
-
-reactivation: boolean = false;
-
-userStatus: string = 'inactive';
-
-signin: FormGroup = new FormGroup({
-  email: new FormControl('', [Validators.email, Validators.required ]),
-  password: new FormControl('', [Validators.required, Validators.min(3) ])
-});
-
-hide = true;
+  public password: any;
+  public computerNo: any;
+  public username: any;
+  public email: any;
 
 
-//email Input === computer Number
-get emailInput() { return this.signin.get('email'); }
-get passwordInput() { return this.signin.get('password'); } 
+  APIEndPoint1 = environment.memberAPI;
+  private reactivateAPI = environment.reactivateAPI;
+
+  isLogin: boolean = true;
+  isLogout: boolean = true;
+
+  reactivation: boolean = false;
+
+  userStatus: string = 'inactive';
+
+  signin: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.min(3)])
+  });
+
+  hide = true;
 
 
-updatePassword(value: any) {
-  this.password = value.target.value;
-  console.log(this.password);
-  
-}
+  //email Input === computer Number
+  get emailInput() { return this.signin.get('email'); }
+  get passwordInput() { return this.signin.get('password'); }
 
-updateEmail(value: any) {
-  this.computerNo = value.target.value;
-  console.log(this.computerNo);
-  
-}
+  setStatus(value: string) {
+    sessionStorage.setItem('userStatus', value);
+  }
+  getStatus(): any {
+    return sessionStorage.getItem('userStatus');
+  }
 
-validateInput(){
-  if (this.computerNo === '' || this.computerNo === undefined || this.password === '' || this.password === undefined) {
-    this.alertService.presentAlert('Oops!', 'All fields are required');
-  }else{
+
+  updatePassword(value: any) {
+    this.password = value.target.value;
+    console.log(this.password);
+
+  }
+
+  updateUserName(value: any) {
+    this.username = value.target.value;
+    console.log(this.username);
+
+  }
+
+  updateEmail(value: any) {
+    this.email = value.target.value;
+    console.log(this.email);
+
+  }
+
+  validateInput() {
+    if (this.email === '' && this.email === undefined && this.password === '' && this.password === undefined) {
+      this.alertService.presentAlert('Error!!!', 'All fields are required');
+    }
+    else {
+      this.alertService.showLoading();
+
+      this.http.post(`${this.APIEndPoint1}${this.email}/${this.password}`, {}
+
+      ).subscribe({
+        next: data => {
+          // console.log('success',data);
+
+          sessionStorage.setItem('userData', JSON.stringify(data));
+          this.alertService.loadingScreen?.dismiss();
+          setTimeout(() => {
+            this.alertService.loadingScreen?.dismiss().then(() => {
+              this.setStatus('active');
+              this.gotoDashboard();
+            });
+          }, 1000);
+
+        },
+        error: data => {
+          console.log('error', data.error);
+          const errorMessage = data.error;
+
+          if (errorMessage === 'Account not yet Activated or Deactivated by user.') {
+            // console.log('Deactivated account');
+            this.reactivation = true;
+            this.isLogin = false;
+
+          } else {
+            // console.log('Wrong details');
+          }
+          setTimeout(() => {
+            this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops', `${data.error}`); });
+          }, 1000);
+
+        }
+      });
+    }
+  }
+
+
+  gotoDashboard() {
+    setTimeout(() => {
+      this.router.navigate(['home']);
+    }, 500);
+  }
+
+  reactivateUser() {
     this.alertService.showLoading();
 
-    this.http.post(`${this.APIEndPoint1}${this.computerNo}/${this.password}`, { }
+    this.http.post(this.reactivateAPI,
+      {
+        "email": this.email,
+        "username": this.username,
+        "password": this.password,
+        "rememberMe": true
+      }
     ).subscribe({
       next: data => {
-        console.log('success', data);
-        
-        sessionStorage.setItem('userData', JSON.stringify(data));
-        this.alertService.loadingScreen?.dismiss();
-        this.alertService.presentAlert('User found', 'Login successfull');
+        console.log('reacivation message', data);
+
         setTimeout(() => {
-          this.alertService.loadingScreen?.dismiss().then(() => {
-            this.setStatus('active');
-            this.gotoDashboard();
-          });
-        }, 1000);
+          let response = Object.values(data);
+          // console.log(response);
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Account Reactivated', `${response[6]}`); });
+
+        }, 2000);
+
+        this.reactivation = false;
+        this.isLogin = true;
+
       },
       error: data => {
-        console.log('login error', data.error);
-        if (data.error === 'Account not yet Activated or Deactivated by user.') {
-          // console.log('Deactivated account');
-          this.reactivation = true;
-          this.isLogin = false;
-
-        } else {
-          // console.log('Wrong details');
-        }
+        console.log('error', data);
         setTimeout(() => {
-        this.alertService.presentAlert('Oops!', `${data.error}`);
-          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops!', `${data.error}`); });
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops', `Username: ${data.error.error}`); });
         }, 1000);
-        
       }
     });
   }
-}
-
-gotoDashboard() {
-  setTimeout(() => {
-    this.router.navigate(['/home']);
-  }, 500);
-}
-
-getStatus(): any {
-  return sessionStorage.getItem('userStatus');
-}
-setStatus(value: string) {
-  sessionStorage.setItem('userStatus', value);
-}
 
 }

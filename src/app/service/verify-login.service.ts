@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {Subject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class VerifyLoginService {
+
+  public isUserLoggedIn: Subject<any> = new Subject()
 
   constructor(private router: Router,) { }
 

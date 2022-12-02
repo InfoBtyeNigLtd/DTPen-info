@@ -1,5 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { ShowTabService } from './service/show-tab.service';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +14,20 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private showTabService: ShowTabService,
     private ref: ChangeDetectorRef,
 
   ) { }
 
   ngOnInit(): void {
+    this.showTabService.isUserLoggedIn.subscribe((data: any) => {
+      console.log('showtab data', data);
+      if (data === true) {
+        this.isShowTab = true;
+      }
+    })
+    console.log('hre are awe');
+    
     this.verifyLogin()
   }
 
@@ -28,7 +38,7 @@ export class AppComponent implements OnInit {
   memoryData: any = sessionStorage.getItem('userData');
 
   verifyLogin() {
-    if (this.memoryData == undefined || this.memoryData == null) {
+    if (this.memoryData === undefined || this.memoryData === null) {
       setTimeout(() => {
         this.router.navigate(['/']);
       }, 500);

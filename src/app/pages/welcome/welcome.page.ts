@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { AlertServiceService } from 'src/app/service/alert-service.service';
+import { ShowTabService } from 'src/app/service/show-tab.service';
 
 @Component({
   selector: 'app-welcome',
@@ -23,6 +24,7 @@ export class WelcomePage implements OnInit, AfterContentChecked {
     private http: HttpClient,
     private alertService: AlertServiceService,
     private ref: ChangeDetectorRef,
+    private showTabService: ShowTabService
 
 
   ) { }
@@ -113,6 +115,7 @@ export class WelcomePage implements OnInit, AfterContentChecked {
           setTimeout(() => {
             this.alertService.loadingScreen?.dismiss().then(() => {
               this.setStatus('active');
+              this.showTabService.isUserLoggedIn.next(true);
               this.gotoDashboard();
             });
           }, 1000);

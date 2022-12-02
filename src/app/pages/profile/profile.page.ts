@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { AlertServiceService } from 'src/app/service/alert-service.service';
+import { ShowTabService } from 'src/app/service/show-tab.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -43,6 +44,7 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertService: AlertServiceService,
     private navCtrl: NavController,
+    private showTabService: ShowTabService,
 
 
   ) { }
@@ -171,6 +173,8 @@ logout() {
   sessionStorage.removeItem('userData');
   this.setStatus('inactive');
   this.router.navigate(['/login']);
+  this.showTabService.isUserLoggedIn.next(false);
+
   window.location.reload();
 }
 

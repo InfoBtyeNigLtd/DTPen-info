@@ -54,8 +54,10 @@ export class SupportDetailsPage implements OnInit {
     this.alertService.showLoading();
     this.http.get(`${this.apiEndPoit2}${this.computerNo}/${this.ticketId}/true`, {}).subscribe({
       next: (data: any) => {
-        this.responseData = data;
-        this.commentData = data[0].conversationDTOs.slice();
+        this.responseData = data.reverse();
+        this.commentData = data[0].conversationDTOs.slice().reverse();
+        console.log(this.commentData);
+        
         this.alertService.loadingScreen?.dismiss();
       },
       error: data => {
@@ -128,7 +130,7 @@ export class SupportDetailsPage implements OnInit {
     this.http.get(`${this.apiEndPoit2}${this.computerNo}/${this.ticketId}/true`, {}).subscribe({
       next: (data: any) => {
         this.responseData = data;
-        this.commentData = data[0].conversationDTOs.slice();
+        this.commentData = data[0].conversationDTOs.slice().reverse();
         this.alertService.loadingScreen?.dismiss();
       },
       error: data => {

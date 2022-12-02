@@ -60,8 +60,8 @@ export class SupportPage implements OnInit {
   getSupportMessage() {
     this.alertService.showLoading();
     this.http.get(`${this.apiEndPoit2}${this.computerNo}/0/${this.plusConversations}`, { }).subscribe({
-      next: data => {
-        this.responseData = data;
+      next: (data:any) => {
+        this.responseData = data.reverse();
         console.log('sent url',`${this.apiEndPoit2}${this.computerNo}/0/${this.plusConversations}`);
         console.log(this.responseData, data);
 

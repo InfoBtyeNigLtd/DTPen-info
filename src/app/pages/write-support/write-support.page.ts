@@ -65,7 +65,7 @@ export class WriteSupportPage implements OnInit {
       next: data => {
         const ticketCategory = data;
         this.ticketCategoryApi = ticketCategory;
-        this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success!!!', 'Loaded Succefully'); });
+        // this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success!!!', 'Loaded Succefully'); });
       },
 
       error: data => {
@@ -107,12 +107,12 @@ export class WriteSupportPage implements OnInit {
         "status": this.status,
     }).subscribe({
         next: data => {
-          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success!!!', 'Message sent succefully'); });
-          this.router.navigate(['/home']);
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success', 'Message sent succefully'); });
+          this.router.navigate(['/support']);
         },
         error: data => {
           setTimeout(() => {
-            this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops!!!', 'Something went wrong'); });
+            this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Oops', 'Something went wrong'); });
           }, 1000);
 
         }

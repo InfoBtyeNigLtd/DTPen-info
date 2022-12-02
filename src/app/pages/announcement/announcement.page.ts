@@ -63,8 +63,8 @@ export class AnnouncementPage implements OnInit {
   getAnnouncement() {
     this.alertService.showLoading();
     this.http.get(`${this.apiLink}`, {}).subscribe({
-      next: data => {
-        this.annoucements = data;
+      next: (data:any) => {
+        this.annoucements = data.reverse();
         console.log('announcement', data);
 
         this.alertService.loadingScreen?.dismiss();

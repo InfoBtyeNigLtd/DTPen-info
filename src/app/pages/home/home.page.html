@@ -11,7 +11,7 @@
         <ion-icon slot="icon-only"></ion-icon>
       </ion-button>
       <ion-button (click)="gotoAnnoucement()">
-        <ion-icon slot="icon-only" name="notifications-outline" ></ion-icon>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -20,21 +20,32 @@
 <ion-content>
   <div class="main_content_div">
 
-    <ion-label class="small_title">Featured</ion-label>
+    <ion-label class="small_title">Pension Wall</ion-label>
 
     <div class="slider_div">
       <ion-slides mode="ios" pager="ios" scrollbar="ios">
         <ion-slide>
-          <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner.jpg)'"></div>
+          <div class="bg_image back_image">
+            <ion-img [src]=avatarImage1 alt="avatar" height="50%"></ion-img>
+          </div>
         </ion-slide>
         <ion-slide>
-          <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner1.jpg)'"></div>
+          <div class="bg_image back_image rotate-center">
+            <ion-img [src]=avatarImage2 alt="avatar" ></ion-img>
+          </div>
         </ion-slide>
         <ion-slide>
-          <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner2.jpg)'"></div>
+          <div class="bg_image back_image">
+            <ion-img [src]=avatarImage3 alt="avatar"></ion-img>
+          </div>
+
+          <!-- <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner2.jpg)'"></div> -->
         </ion-slide>
         <ion-slide>
-          <div class="bg_image back_image" [style.backgroundImage]="'url(assets/imgs/banner3.jpg)'"></div>
+          <!-- <ion-img [src]=avatarImage2 alt="avatar"></ion-img> -->
+          <div class="bg_image back_image">
+            <ion-img [src]=avatarImage2 alt="avatar"></ion-img>
+          </div>
         </ion-slide>
       </ion-slides>
     </div>
@@ -42,6 +53,7 @@
     <ion-row>
       <ion-col size="6" [class.left]="i%2==1" [class.right]="i%2==0" *ngFor="let item of gridContent; let i = index">
         <div class="color_div" [style.background]="item.color" (click)="goToPage(item.url)">
+          <ion-img src="{{item.avatar}}" alt="avatar"></ion-img>
           <ion-label class="grid_title">{{item.title}}</ion-label>
           <ion-label class="grid_subtitle">{{item.subTitle}}</ion-label>
         </div>
@@ -55,5 +67,5 @@
 
   </div>
 
-  
+
 </ion-content>

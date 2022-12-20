@@ -35,7 +35,7 @@ export class ProfilePage implements OnInit {
 
   handlerMessage = '';
   roleMessage = '';
-
+  avatarImage2: string = '/assets/imgs/simple-logo.png';
 
   constructor(
     private router: Router,

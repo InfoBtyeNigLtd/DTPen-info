@@ -6,14 +6,14 @@
       </div>
     </div>
 
-    <ion-label class="bold_lbl">DTPen-info</ion-label><br>
-    <ion-label class="small_lbl">Know more about your Pension status</ion-label>
+    <ion-label class="bold_lbl">DTPen-Info</ion-label><br>
+    <ion-label class="small_lbl">Know more about your pension status</ion-label>
 
     <mat-card *ngIf="isLogin" style="background-color:transparent">
       <form [formGroup]="signin">
         <mat-form-field appearance="outline">
-          <mat-label>email </mat-label>
-          <input type="text" matInput placeholder="exapmle@gmail.com" (blur)="updateEmail($event)" required formControlName="email">
+          <mat-label>Email </mat-label>
+          <input type="text" matInput placeholder="example@gmail.com" (blur)="updateEmail($event)" required formControlName="email">
           <mat-icon matSuffix >verified_user</mat-icon>
         </mat-form-field>
 

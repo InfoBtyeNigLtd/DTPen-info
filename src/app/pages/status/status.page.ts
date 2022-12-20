@@ -69,7 +69,7 @@ export class StatusPage implements OnInit {
   public showAnswer(answer: string,) {
     this.qAnswer = answer;
     this.alertService.loadingScreen?.dismiss();
-    this.alertService.presentAlert('Response', this.qAnswer)
+    this.alertService.presentAlert('Notification', this.qAnswer)
     
   }
 

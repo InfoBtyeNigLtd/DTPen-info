@@ -18,13 +18,13 @@
       </div>
     </div>
 
-    <ion-label class="bold_lbl">DTPen-info</ion-label><br>
-    <ion-label class="small_lbl">Know more about your Pension status</ion-label>
+    <ion-label class="bold_lbl">DTPen-Info</ion-label><br>
+    <ion-label class="small_lbl">Know more about your pension status</ion-label>
     <ion-card-subtitle color="danger">{{name}}</ion-card-subtitle>
 
 
-    <mat-card>
-      <form [formGroup]="signup">
+    <mat-card style="background-color:transparent">
+      <form [formGroup]="signup" >
         <mat-form-field appearance="outline">
           <mat-label>Computer Number</mat-label>
           <input type="text" matInput placeholder="qwerty12345" (blur)="updateComputerNo($event)" required formControlName="computerNo">
@@ -56,17 +56,13 @@
         </mat-form-field>
 
         <ion-label color="danger">Note: Signup button will only show when the computer number is valid</ion-label>
-      <ion-button (click)="validatepassword()" expand="block" *ngIf="canRegister"> signup</ion-button>
+      <ion-button (click)="validatepassword()" expand="block" *ngIf="canRegister"> Signup</ion-button>
       </form>
     </mat-card><br>
 
-    <ion-label> Already have an account? </ion-label>
-    <ion-button (click)="goToLogin()" expand="block"  class="fb_btn" mode="ios">
-      Login
-    </ion-button>
+    <ion-label (click)="goToLogin()"> Already have an account?  <span style="color:blue;">Login</span></ion-label>
 
   </div>
-
 
 </ion-content>
 

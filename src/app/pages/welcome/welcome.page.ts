@@ -13,10 +13,7 @@ import { ShowTabService } from 'src/app/service/show-tab.service';
   styleUrls: ['./welcome.page.scss'],
 })
 
-export class WelcomePage implements OnInit, AfterContentChecked {
-
-
-
+export class WelcomePage implements OnInit {
 
   constructor(private router: Router,
     private alertController: AlertController,
@@ -30,13 +27,8 @@ export class WelcomePage implements OnInit, AfterContentChecked {
   ) { }
 
 
-
   ngOnInit() {
 
-  }
-
-  ngAfterContentChecked(): void {
-    this.ref.detectChanges();
   }
 
   goToSignup() {
@@ -98,7 +90,8 @@ export class WelcomePage implements OnInit, AfterContentChecked {
   }
 
   validateInput() {
-    if (this.email === '' && this.email === undefined && this.password === '' && this.password === undefined) {
+    if (this.email === '' || this.email === undefined ||this.email === null ||
+        this.password === '' || this.password === undefined ||this.password === null) {
       this.alertService.presentAlert('Error!!!', 'All fields are required');
     }
     else {

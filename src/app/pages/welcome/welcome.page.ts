@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { AlertServiceService } from 'src/app/service/alert-service.service';
 import { ShowTabService } from 'src/app/service/show-tab.service';
@@ -16,18 +15,14 @@ import { ShowTabService } from 'src/app/service/show-tab.service';
 export class WelcomePage implements OnInit {
 
   constructor(private router: Router,
-    private alertController: AlertController,
-    private loadingCtrl: LoadingController,
     private http: HttpClient,
     private alertService: AlertServiceService,
-    private ref: ChangeDetectorRef,
-    private showTabService: ShowTabService
-
+    private showTabService: ShowTabService,
 
   ) { }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
@@ -90,8 +85,8 @@ export class WelcomePage implements OnInit {
   }
 
   validateInput() {
-    if (this.email === '' || this.email === undefined ||this.email === null ||
-        this.password === '' || this.password === undefined ||this.password === null) {
+    if (this.email === '' || this.email === undefined || this.email === null ||
+      this.password === '' || this.password === undefined || this.password === null) {
       this.alertService.presentAlert('Error!!!', 'All fields are required');
     }
     else {

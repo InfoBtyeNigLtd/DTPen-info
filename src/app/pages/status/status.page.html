@@ -34,7 +34,7 @@
         {{msg.question}}
       </div>
       <div class="incoming" *ngIf="msg.id > 2 && msg.id < 7" (click)="selectedQuestion(msg.id)">
-        <ion-button color="success" fill="outline" expand="block">{{msg.question}}</ion-button>
+        <ion-button color="tertiary" fill="outline" expand="block">{{msg.question}}</ion-button>
       </div>
 
       <div class="link" *ngIf="msg.id == 7" (click)="navigateToSupport()">

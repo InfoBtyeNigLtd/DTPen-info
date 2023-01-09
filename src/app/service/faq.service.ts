@@ -113,23 +113,23 @@ export class FaqService {
 
   features = [
     {
-      name: 'Car Comfort',
-      open: true
-    },
-    {
-      name: 'Car Safety',
+      name: 'How often do governtment pay',
       open: false
     },
     {
-      name: 'Car Interior',
+      name: 'when will they pay me',
       open: false
     },
     {
-      name: 'Car Exterior',
+      name: 'What is my total contribution',
       open: false
     },
     {
-      name: 'Car Entertainment',
+      name: 'Can i know my accrud right',
+      open: false
+    },
+    {
+      name: 'When will my certificate ready',
       open: false
     }
   ];

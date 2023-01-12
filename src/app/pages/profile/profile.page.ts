@@ -54,25 +54,25 @@ export class ProfilePage implements OnInit {
   }
 
 
-    //local storage
+  //local storage
   /**change the localStorage to sessionStorage if you want session storage
    * localStirage.removeItem;
   */
-   memoryData: any = sessionStorage.getItem('userData');
+  memoryData: any = sessionStorage.getItem('userData');
 
-   verifyLogin() {
-     if (this.memoryData == undefined || this.memoryData == null) {
-       setTimeout(() => {
-         this.router.navigate(['/']);
-       }, 500);
-     } else {
-     
-       this.getUserData();
- 
-     }
-   }
+  verifyLogin() {
+    if (this.memoryData == undefined || this.memoryData == null) {
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 500);
+    } else {
 
-   getUserData() {
+      this.getUserData();
+
+    }
+  }
+
+  getUserData() {
     this.alertService.showLoading();
     this.memoryData = JSON.parse(this.memoryData);
     this.memoryData?.fullname;
@@ -82,7 +82,7 @@ export class ProfilePage implements OnInit {
     this.http.get(`${this.APIEndPoint1}${this.memberId}`, {}).subscribe({
       next: data => {
         // console.log('success data', data);
-        
+
         this.result = data;
         this.alertService.loadingScreen?.dismiss();
         const result: any = data;
@@ -107,7 +107,7 @@ export class ProfilePage implements OnInit {
 
   async presentAlertDeactivate(event: any) {
     // console.log(event);
-    
+
     const alert = await this.alertController.create({
       header: 'Confirm Deactivation',
       message: 'Are you sure',
@@ -124,7 +124,7 @@ export class ProfilePage implements OnInit {
           role: 'confirm',
           handler: () => {
             this.handlerMessage = 'Alert confirmed';
-            this.deactivation(event);
+            this.deactivateUserAccount(event);
           },
         },
       ],
@@ -136,19 +136,24 @@ export class ProfilePage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  deactivation(event: any){
+  /**method to deactivate the user account */
+  deactivateUserAccount(event: any) {
+    this.alertService.showLoading();
+
     // console.log('computer number: ',event);
 
     this.http.post(`${this.APIEndPoint1}${this.computerNo}`, {}).subscribe({
       next: data => {
-        // console.log('sent successfully', data);
-         // show success Message
-         this.alertService.showLoading();
-         setTimeout(() => {
-          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Success', 'Account Deactivated'); });
-           this.logout();
-           this.router.navigate(['/']);
-         }, 5000);
+        console.log('sent successfully', data);
+        // show success Message
+        // this.alertService.presentAlert('Success', 'Account Deactivated');
+
+        setTimeout(() => {
+          this.alertService.loadingScreen?.dismiss().then(() => { this.alertService.presentAlert('Account Deactivated', 'successfully'); });
+
+        }, 2000);
+        this.logout();
+
 
       },
       error: data => {
@@ -163,52 +168,55 @@ export class ProfilePage implements OnInit {
       }
     });
 
-}
+  }
 
-setStatus(value: string) {
-  sessionStorage.setItem('userStatus', value);
-}
+  setStatus(value: string) {
+    sessionStorage.setItem('userStatus', value);
+  }
 
-logout() {
-  sessionStorage.removeItem('userData');
-  this.setStatus('inactive');
-  this.router.navigate(['/login']);
-  this.showTabService.isUserLoggedIn.next(false);
+  logout() {
+    sessionStorage.removeItem('userData');
+    this.setStatus('inactive');
+    this.router.navigate(['/']);
+    this.showTabService.isUserLoggedIn.next(false);
 
-  window.location.reload();
-}
+    setTimeout(() => {
+    window.location.reload();
+      
+    }, 5000);
+  }
 
-goBack() {
-  this.navCtrl.back();
-}
+  goBack() {
+    this.navCtrl.back();
+  }
 
-async presentAlertLogout() {
-  const alert = await this.alertController.create({
-    header: 'Confirm Logout',
-    message: 'Are you sure',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          this.handlerMessage = 'Alert canceled';
+  async presentAlertLogout() {
+    const alert = await this.alertController.create({
+      header: 'Confirm Logout',
+      message: 'Are you sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
         },
-      },
-      {
-        text: 'OK',
-        role: 'confirm',
-        handler: () => {
-          this.handlerMessage = 'Alert confirmed';
-          this.logout();
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            this.handlerMessage = 'Alert confirmed';
+            this.logout();
+          },
         },
-      },
-    ],
-  });
+      ],
+    });
 
-  await alert.present();
+    await alert.present();
 
-  const { role } = await alert.onDidDismiss();
-  this.roleMessage = `Dismissed with role: ${role}`;
-}
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
+  }
 
 }

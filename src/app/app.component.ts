@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.showTabService.isUserLoggedIn.subscribe((data: any) => {
-      console.log('showtab data', data);
+      // console.log('showtab data', data);
       if (data === true) {
         this.isShowTab = true;
       }
     })
-    console.log('hre are awe');
+    // console.log('here are we');
     
     this.verifyLogin()
   }

@@ -190,6 +190,7 @@ export class ProfilePage implements OnInit {
     this.navCtrl.back();
   }
 
+  /**method that prompt useer to confirm deactivation */
   async presentAlertLogout() {
     const alert = await this.alertController.create({
       header: 'Confirm Logout',
